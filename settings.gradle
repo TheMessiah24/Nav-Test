@@ -1,0 +1,3 @@
+rootProject.name = "MapboxNavigationApp"
+include ':MapboxNavigationApp:app'
+project(':MapboxNavigationApp:app').projectDir = new File(rootDir, 'MapboxNavigationApp/app')
