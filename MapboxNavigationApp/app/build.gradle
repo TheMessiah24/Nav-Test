@@ -71,15 +71,16 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     
-    // Mapbox Maps SDK
-    implementation 'com.mapbox.maps:android:11.12.0'
+    // Mapbox Maps SDK - Updated to latest version
+    implementation 'com.mapbox.maps:android:11.11.1'
     
-    // Mapbox Navigation SDK
-    implementation 'com.mapbox.navigation:android:3.8.6'
+    // Mapbox Navigation SDK - Updated to latest version
+    implementation 'com.mapbox.navigation:core:3.8.6'
+    implementation 'com.mapbox.navigation:ui:3.8.6'
     
-    // Mapbox Search SDK
-    implementation 'com.mapbox.search:mapbox-search-android:2.12.0-beta.1'
-    implementation 'com.mapbox.search:mapbox-search-ui:2.12.0-beta.1'
+    // Mapbox Search SDK - Updated to latest version
+    implementation 'com.mapbox.search:mapbox-search-android:2.12.0'
+    implementation 'com.mapbox.search:mapbox-search-ui:2.12.0'
     
     // Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'

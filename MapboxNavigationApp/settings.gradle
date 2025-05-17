@@ -1,2 +1,21 @@
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven {
+            url 'https://api.mapbox.com/downloads/v2/releases/maven'
+            authentication {
+                basic(BasicAuthentication)
+            }
+            credentials {
+                username = "mapbox"
+                password = System.getenv("MAPBOX_DOWNLOADS_TOKEN") ?: findProperty("MAPBOX_DOWNLOADS_TOKEN")
+            }
+        }
+    }
+}
+
 rootProject.name = "MapboxNavigationApp"
 include ':app'
+project(':app').projectDir = new File(rootDir, 'app')
