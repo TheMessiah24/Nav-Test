@@ -1,95 +1,60 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
 
 android {
-    signingConfigs {
-        release {
-            storeFile file("${rootProject.projectDir}/keystore/release-keystore.jks")
-            storePassword "mapbox-navigation-app"
-            keyAlias "mapbox-navigation"
-            keyPassword "mapbox-navigation-app"
-        }
-    }
-    
-    compileSdkVersion 33
+    namespace 'com.mapbox.navigation'
+    compileSdk 34
+
     defaultConfig {
         applicationId "com.mapbox.navigation"
-        minSdkVersion 21
-        targetSdkVersion 33
+        minSdk 21
+        targetSdk 34
         versionCode 1
         versionName "1.0"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
-        }
-        debug {
             minifyEnabled false
-            applicationIdSuffix ".debug"
-            debuggable true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    
     buildFeatures {
         viewBinding true
-    }
-    
-    // Create the keystore directory if it doesn't exist
-    def keystoreDir = new File("${rootProject.projectDir}/keystore")
-    if (!keystoreDir.exists()) {
-        keystoreDir.mkdirs()
     }
 }
 
 dependencies {
-    // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.6.21"
-    
-    // AndroidX
-    implementation 'androidx.core:core-ktx:1.9.0'
+    // AndroidX Core Libraries
+    implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
-    implementation 'com.google.android.material:material:1.8.0'
-    implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'com.google.android.material:material:1.11.0'
     
-    // Mapbox Maps SDK - Updated to latest version
-    implementation 'com.mapbox.maps:android:11.11.1'
+    // Mapbox Maps SDK
+    implementation 'com.mapbox.maps:android:11.1.0'
     
-    // Mapbox Navigation SDK - Updated to latest version
-    implementation 'com.mapbox.navigation:core:3.8.6'
-    implementation 'com.mapbox.navigation:ui:3.8.6'
+    // Mapbox Navigation SDK
+    implementation 'com.mapbox.navigation:android:2.17.4'
+    implementation 'com.mapbox.navigation:ui-dropin:2.17.4'
     
-    // Mapbox Search SDK - Updated to latest version
-    implementation 'com.mapbox.search:mapbox-search-android:2.12.0'
-    implementation 'com.mapbox.search:mapbox-search-ui:2.12.0'
+    // Mapbox Search SDK
+    implementation 'com.mapbox.search:mapbox-search-android:1.0.0-rc.5'
+    implementation 'com.mapbox.search:mapbox-search-android-ui:1.0.0-rc.5'
     
-    // Coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
-    
-    // Gson for JSON serialization
-    implementation 'com.google.code.gson:gson:2.9.0'
-    
-    // Testing
+    // Testing Libraries
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
