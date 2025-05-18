@@ -1,3 +1,7 @@
+rootProject.name = "MapboxNavigationApp"
+include ':MapboxNavigationApp:app'
+project(':MapboxNavigationApp:app').projectDir = new File(rootDir, 'MapboxNavigationApp/app')
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
