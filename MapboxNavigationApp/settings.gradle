@@ -10,7 +10,7 @@ dependencyResolutionManagement {
             }
             credentials {
                 username = "mapbox"
-                password = System.getenv("MAPBOX_DOWNLOADS_TOKEN") ?: findProperty("MAPBOX_DOWNLOADS_TOKEN")
+                password = System.getenv("MAPBOX_DOWNLOADS_TOKEN") ?: providers.gradleProperty("MAPBOX_DOWNLOADS_TOKEN").get()
             }
         }
     }
