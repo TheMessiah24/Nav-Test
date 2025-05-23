@@ -74,8 +74,8 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
     
     private fun enable3DBuildings(style: Style) {
         // Enable 3D buildings
-        style.setStyleImportConfigProperty("building", "true")
-        style.setStyleImportConfigProperty("3d-buildings", "true")
+        style.styleSourceProperty("composite", "building", true)
+        style.styleSourceProperty("composite", "3d-buildings", true)
         
         // Add atmospheric effects
         style.atmosphere(
@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         // Add sky layer for realistic sky rendering
         style.addLayer(
             skyLayer("sky") {
-                skyType(SkyType.ATMOSPHERE)
+                skyType(com.mapbox.maps.extension.style.layers.properties.generated.SkyType.ATMOSPHERE)
                 skyAtmosphereSun(listOf(-75.0, 75.0))
                 skyAtmosphereSunIntensity(15.0)
             }
@@ -98,13 +98,13 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         
         // Add lighting for 3D objects
         style.addLight(
-            ambientLight {
+            ambientLight("ambientLight") {
                 color(listOf(1.0, 1.0, 1.0, 0.6))
             }
         )
         
         style.addLight(
-            directionalLight {
+            directionalLight("directionalLight") {
                 color(listOf(1.0, 0.9, 0.7, 0.8))
                 direction(listOf(-40.0, 40.0))
                 castShadows(true)
@@ -112,7 +112,7 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         )
         
         // Set camera pitch for 3D view
-        binding.mapView.camera.easeTo(
+        binding.mapView.getMapboxMap().setCamera(
             CameraOptions.Builder()
                 .pitch(45.0)
                 .build()

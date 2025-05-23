@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mapbox.navigation">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Permissions required by the app -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -19,9 +18,8 @@
         android:theme="@style/Theme.MapboxNavigation">
 
         <activity
-            android:name=".ui.MainActivity"
-            android:exported="true"
-            android:screenOrientation="portrait">
+            android:name="com.mapbox.navigation.ui.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
