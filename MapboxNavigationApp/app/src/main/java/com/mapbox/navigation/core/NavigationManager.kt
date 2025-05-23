@@ -10,6 +10,7 @@ import com.mapbox.api.directions.v5.models.VoiceInstructions
 import com.mapbox.geojson.Point
 import com.mapbox.navigation.base.options.NavigationOptions
 import com.mapbox.navigation.base.trip.model.RouteProgress
+import com.mapbox.navigation.core.MapboxNavigationProvider
 import com.mapbox.navigation.core.directions.session.RoutesObserver
 import com.mapbox.navigation.core.directions.session.RoutesRequestCallback
 import com.mapbox.navigation.core.trip.session.RouteProgressObserver
@@ -23,7 +24,7 @@ import java.util.Locale
 class NavigationManager(private val context: Context) {
 
     private val mapboxNavigation by lazy {
-        com.mapbox.navigation.core.MapboxNavigation(
+        MapboxNavigationProvider.create(
             NavigationOptions.Builder(context)
                 .accessToken(context.getString(com.mapbox.navigation.R.string.mapbox_access_token))
                 .build()
@@ -65,21 +66,23 @@ class NavigationManager(private val context: Context) {
         callback: (List<DirectionsRoute>?) -> Unit
     ) {
         val routeOptions = RouteOptions.builder()
-            .applyDefaultNavigationOptions()
-            .applyLanguageAndVoiceUnitOptions(context)
             .coordinatesList(listOf(origin, destination))
             .alternatives(true)
             // Enable traffic data for real-time route optimization
-            .trafficAnnotations(DirectionsCriteria.ANNOTATION_CONGESTION, DirectionsCriteria.ANNOTATION_MAXSPEED)
+            .annotations(listOf(
+                DirectionsCriteria.ANNOTATION_CONGESTION,
+                DirectionsCriteria.ANNOTATION_MAXSPEED,
+                DirectionsCriteria.ANNOTATION_SPEED
+            ))
             // Consider traffic conditions when calculating routes
-            .profile(DirectionsRoute.PROFILE_DRIVING_TRAFFIC)
-            // Include incidents data
-            .annotations(DirectionsCriteria.ANNOTATION_CONGESTION, DirectionsCriteria.ANNOTATION_MAXSPEED, DirectionsCriteria.ANNOTATION_SPEED)
+            .profile(DirectionsCriteria.PROFILE_DRIVING_TRAFFIC)
             // Enable voice instructions
             .voiceInstructions(true)
             // Enable banner instructions (for lane guidance)
             .bannerInstructions(true)
             .departAt(Date())
+            .language(context.resources.configuration.locales[0].language)
+            .accessToken(context.getString(com.mapbox.navigation.R.string.mapbox_access_token))
             .build()
 
         mapboxNavigation.requestRoutes(
